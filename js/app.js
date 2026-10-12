@@ -1,4 +1,4 @@
-/* 「把自己收回来」V0.1 —— 纯前端，本地保存，无后端 */
+/* 「找回主体性」V0.1 —— 纯前端，本地保存，无后端 */
 (function () {
   "use strict";
   var C = window.SHOUHUI_CONTENT;
@@ -159,7 +159,7 @@
     arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg>',
     save: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/></svg>',
     redo: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1 0 2.1-5"/><path d="M5 4.5V9h4.5"/></svg>',
-    seal: '<svg class="seal" viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="3" width="34" height="34" rx="4"/><text x="20" y="27.6" text-anchor="middle">收</text></svg>'
+    seal: '<svg class="seal" viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="3" width="34" height="34" rx="4"/><text x="20" y="27.6" text-anchor="middle">主</text></svg>'
   };
   function stateButtons() {
     return '<div class="states">' + C.ui.states.map(function (s, i) {
@@ -344,7 +344,7 @@
     window.ShouhuiExport.render(a, C).then(function (blob) {
       exporting = false; hideToast();
       var url = URL.createObjectURL(blob);
-      var name = ((a.nick ? a.nick + "-" : "") + "把自己收回来-" + a.date.replace(/-/g, "") + ".png").replace(/\s+/g, "");
+      var name = ((a.nick ? a.nick + "-" : "") + "找回主体性-" + a.date.replace(/-/g, "") + ".png").replace(/\s+/g, "");
       if (previewMode()) return showPreview(url);
       var l = document.createElement("a"); l.href = url; l.download = name; l.rel = "noopener";
       document.body.appendChild(l); l.click(); document.body.removeChild(l);
@@ -356,7 +356,7 @@
     var ov = document.createElement("div");
     ov.className = "overlay"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "保存图片");
     ov.innerHTML = '<div class="sheet"><p class="sheet-tip"><b>长按下面的图片</b>，选择「保存到相册」或「保存图片」。</p>' +
-      '<div class="sheet-img"><img src="' + url + '" alt="把自己收回来 · 结果长图"></div>' +
+      '<div class="sheet-img"><img src="' + url + '" alt="找回主体性 · 结果长图"></div>' +
       '<button type="button" class="btn primary wide" data-close>关闭</button></div>';
     document.body.appendChild(ov); document.body.classList.add("noscroll");
     function close() { if (!ov.parentNode) return; ov.parentNode.removeChild(ov); document.body.classList.remove("noscroll"); URL.revokeObjectURL(url); document.removeEventListener("keydown", onKey); }
@@ -497,7 +497,7 @@
 
   /* ---------------- PWA ---------------- */
   if ("serviceWorker" in navigator && location.protocol === "https:") {
-    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js?v=0.1.0").catch(function () {}); });
+    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js?v=0.1.1").catch(function () {}); });
   }
 
   /* 只读调试/测试入口（不含任何网络能力） */

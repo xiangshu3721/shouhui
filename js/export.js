@@ -86,7 +86,7 @@
       } else if (o.t === "seal") {
         var sx = W / 2 - 22, sy = Y0 + o.y;
         c.strokeStyle = COL.green; c.lineWidth = 2; roundRect(c, sx, sy, 44, 44, 5); c.stroke();
-        c.fillStyle = COL.green; c.font = "600 24px " + SERIF; c.textAlign = "center"; c.fillText("收", W / 2, sy + 31);
+        c.fillStyle = COL.green; c.font = "600 24px " + SERIF; c.textAlign = "center"; c.fillText("主", W / 2, sy + 31);
       } else if (o.t === "rule") {
         c.strokeStyle = COL.line; c.lineWidth = 1; c.beginPath(); c.moveTo(X0, Y0 + o.y + 0.5); c.lineTo(W - X0, Y0 + o.y + 0.5); c.stroke();
         c.fillStyle = COL.gold; c.beginPath(); c.arc(W / 2, Y0 + o.y + 0.5, 3, 0, Math.PI * 2); c.fill();
