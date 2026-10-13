@@ -1,9 +1,9 @@
 /* 极简离线缓存：页面走网络优先，带 ?v= 的静态资源走缓存优先。升级时改 VERSION。 */
-var VERSION = "0.1.1";
+var VERSION = "0.2.0";
 var CACHE = "shouhui-" + VERSION;
 var ASSETS = ["./", "index.html", "css/style.css?v=" + VERSION, "js/content.js?v=" + VERSION, "js/export.js?v=" + VERSION,
   "js/app.js?v=" + VERSION, "manifest.webmanifest?v=" + VERSION, "icons/icon.svg?v=" + VERSION,
-  "icons/icon-192.png?v=" + VERSION, "icons/apple-touch-icon.png?v=" + VERSION];
+  "icons/icon-192.png?v=" + VERSION, "icons/apple-touch-icon.png?v=" + VERSION, "img/hero/hero.svg"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(ASSETS); }).then(function () { return self.skipWaiting(); }));
 });
