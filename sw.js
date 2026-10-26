@@ -1,9 +1,14 @@
 /* 极简离线缓存：页面走网络优先，带 ?v= 的静态资源走缓存优先。升级时改 VERSION。 */
-var VERSION = "0.2.0";
+var VERSION = "0.3.0";
 var CACHE = "shouhui-" + VERSION;
+var CARD_IDS = ["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6","C1","C2","C3","C4","C5","C6","D1","D2","D3","D4","D5","D6"];
 var ASSETS = ["./", "index.html", "css/style.css?v=" + VERSION, "js/content.js?v=" + VERSION, "js/export.js?v=" + VERSION,
   "js/app.js?v=" + VERSION, "manifest.webmanifest?v=" + VERSION, "icons/icon.svg?v=" + VERSION,
-  "icons/icon-192.png?v=" + VERSION, "icons/apple-touch-icon.png?v=" + VERSION, "img/hero/hero.svg"];
+  "icons/icon-192.png?v=" + VERSION, "icons/apple-touch-icon.png?v=" + VERSION,
+  "img/hero/hero.svg?v=" + VERSION, "img/hero/quiz.svg?v=" + VERSION, "img/hero/paper.svg?v=" + VERSION,
+  "img/cards/dim-A.svg?v=" + VERSION, "img/cards/dim-B.svg?v=" + VERSION, "img/cards/dim-C.svg?v=" + VERSION, "img/cards/dim-D.svg?v=" + VERSION,
+  "img/cards/group-edge.svg?v=" + VERSION, "img/cards/group-relate.svg?v=" + VERSION, "img/cards/group-grow.svg?v=" + VERSION, "img/cards/group-act.svg?v=" + VERSION]
+  .concat(CARD_IDS.map(function (id) { return "img/cards/" + id + ".svg?v=" + VERSION; }));
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(ASSETS); }).then(function () { return self.skipWaiting(); }));
 });

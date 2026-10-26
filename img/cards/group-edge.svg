@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+<defs>
+  <linearGradient id="g41sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#f7f4ee"/>
+    <stop offset="55%" stop-color="#d7e6d6"/>
+    <stop offset="100%" stop-color="#e7f1e4"/>
+  </linearGradient>
+  <filter id="g41soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="10"/>
+  </filter>
+  <filter id="g41grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="41"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+  </filter>
+</defs>
+<rect width="480" height="360" fill="url(#g41sky)"/>
+<g filter="url(#g41soft)"><path d="M 157.7 18.5 Q 91.4 14.1 157.7 18.5 Q 224.0 22.9 244.9 43.9 Q 265.8 64.8 233.9 86.9 Q 202.0 108.9 146.7 118.6 Q 91.4 128.2 30.4 119.4 Q -30.7 110.5 -49.4 87.7 Q -68.2 64.8 -38.8 42.8 Q -9.4 20.8 41.0 17.5 Z" fill="#e7f1e4" opacity="0.32"/><path d="M 436.5 43.2 Q 380.3 36.8 436.5 43.2 Q 492.6 49.6 518.0 64.4 Q 543.4 79.2 507.6 98.5 Q 471.7 117.7 426.0 120.3 Q 380.3 122.8 326.3 116.4 Q 272.3 110.0 243.6 94.6 Q 214.9 79.2 237.9 64.2 Q 260.9 49.3 320.6 43.0 Z" fill="#c5d9c4" opacity="0.35"/><path d="M 322.0 86.1 Q 244.6 84.1 322.0 86.1 Q 399.3 88.0 411.1 105.2 Q 422.9 122.4 405.7 137.2 Q 388.6 151.9 316.6 158.7 Q 244.6 165.5 179.3 156.6 Q 114.0 147.7 95.9 135.0 Q 77.8 122.4 87.8 107.5 Q 97.7 92.7 171.1 88.4 Z" fill="#d7e6d6" opacity="0.44"/><path d="M 118.0 142.7 Q 73.5 134.8 118.0 142.7 Q 162.5 150.7 174.7 161.7 Q 186.9 172.8 183.9 187.2 Q 181.0 201.7 127.2 202.7 Q 73.5 203.7 23.3 199.3 Q -27.0 194.8 -53.3 183.8 Q -79.7 172.8 -54.9 159.6 Q -30.0 146.3 21.7 140.6 Z" fill="#fff" opacity="0.37"/><path d="M 464.5 143.9 Q 421.4 140.8 464.5 143.9 Q 507.6 146.9 531.0 163.4 Q 554.3 180.0 531.2 197.8 Q 508.0 215.7 464.7 217.2 Q 421.4 218.7 374.3 213.4 Q 327.2 208.1 303.0 194.0 Q 278.7 180.0 299.2 165.4 Q 319.6 150.8 370.5 145.8 Z" fill="#f6efc4" opacity="0.47"/></g>
+<circle cx="297.6" cy="79.2" r="26.0" fill="#f6efc4" opacity="0.45"/>
+<polygon points="297.6,66.2 300.5,76.3 310.6,79.2 300.5,82.1 297.6,92.2 294.7,82.1 284.6,79.2 294.7,76.3" fill="#fff8dc"/>
+<circle cx="297.6" cy="79.2" r="2.2" fill="#fff" opacity="0.9"/>
+<g><path d="M -38.4 364.0 L -38.4 207.8 Q 27.1 198.0 100.8 224.9 Q 174.6 208.2 240.0 219.4 Q 321.5 198.1 379.2 207.3 Q 453.9 179.9 518.4 197.5 L 518.4 364.0 Z" fill="#8eae96" opacity="0.38"/><path d="M -38.4 364.0 L -38.4 245.2 Q 24.1 211.4 73.0 236.1 Q 128.9 225.5 184.3 249.4 Q 236.4 190.8 295.7 212.7 Q 361.5 189.0 407.0 232.7 Q 458.1 204.1 518.4 258.0 L 518.4 364.0 Z" fill="#5f7e68" opacity="0.5"/><path d="M -38.4 364.0 L -38.4 281.7 Q 31.2 271.7 100.8 289.2 Q 164.0 273.9 240.0 289.8 Q 309.0 274.5 379.2 283.5 Q 448.7 273.9 518.4 281.3 L 518.4 364.0 Z" fill="#3e5c4c" opacity="0.72"/></g>
+<ellipse cx="240.0" cy="280.8" rx="201.6" ry="19.8" fill="#d5e6df" opacity="0.55"/>
+<ellipse cx="240.0" cy="279.0" rx="105.6" ry="6.5" fill="#fff" opacity="0.35"/>
+
+<rect width="480" height="360" filter="url(#g41grain)" opacity="0.55"/>
+</svg>

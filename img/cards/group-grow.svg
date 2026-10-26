@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+<defs>
+  <linearGradient id="g43sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fbf6f0"/>
+    <stop offset="55%" stop-color="#f6dcc8"/>
+    <stop offset="100%" stop-color="#f8e8da"/>
+  </linearGradient>
+  <filter id="g43soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="10"/>
+  </filter>
+  <filter id="g43grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="43"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+  </filter>
+</defs>
+<rect width="480" height="360" fill="url(#g43sky)"/>
+<g filter="url(#g43soft)"><path d="M 135.2 18.1 Q 78.3 14.6 135.2 18.1 Q 192.1 21.6 225.4 43.2 Q 258.7 64.8 226.2 81.6 Q 193.6 98.5 135.9 109.1 Q 78.3 119.8 13.3 113.0 Q -51.8 106.2 -75.8 85.5 Q -99.9 64.8 -61.8 41.9 Q -23.7 18.9 27.3 16.8 Z" fill="#f8e8da" opacity="0.46"/><path d="M 420.5 34.3 Q 369.6 28.6 420.5 34.3 Q 471.3 40.1 495.0 59.6 Q 518.7 79.2 496.4 96.2 Q 474.2 113.3 421.9 117.4 Q 369.6 121.6 310.6 120.4 Q 251.6 119.2 243.9 99.2 Q 236.2 79.2 251.6 63.9 Q 267.0 48.7 318.3 38.6 Z" fill="#f0cbb0" opacity="0.47"/><path d="M 301.2 83.5 Q 243.2 76.4 301.2 83.5 Q 359.2 90.5 407.1 106.5 Q 455.1 122.4 412.9 137.8 Q 370.8 153.3 307.0 156.8 Q 243.2 160.4 166.8 158.2 Q 90.4 156.0 86.4 139.2 Q 82.3 122.4 98.1 108.9 Q 113.9 95.3 178.6 85.9 Z" fill="#f6dcc8" opacity="0.41"/><path d="M 137.4 143.3 Q 90.0 141.8 137.4 143.3 Q 184.9 144.8 215.7 158.8 Q 246.4 172.8 207.9 187.7 Q 169.4 202.5 129.7 203.0 Q 90.0 203.4 48.9 198.9 Q 7.7 194.5 -22.3 183.6 Q -52.4 172.8 -33.9 161.9 Q -15.5 150.9 37.2 146.4 Z" fill="#fff" opacity="0.40"/><path d="M 456.3 144.4 Q 405.8 144.5 456.3 144.4 Q 506.9 144.2 510.3 162.1 Q 513.7 180.0 511.7 197.5 Q 509.6 215.0 457.7 217.8 Q 405.8 220.7 358.2 215.6 Q 310.7 210.5 286.0 195.3 Q 261.4 180.0 284.0 162.8 Q 306.6 145.5 356.2 145.0 Z" fill="#f8e0a0" opacity="0.36"/></g>
+<circle cx="230.4" cy="108.0" r="46.0" fill="#f8e0a0" opacity="0.35"/>
+<circle cx="230.4" cy="108.0" r="28.0" fill="#f8e0a0" opacity="0.55"/>
+<circle cx="230.4" cy="108.0" r="16.0" fill="#fff6d8"/>
+<g><path d="M -38.4 364.0 L -38.4 223.2 Q 27.5 193.2 100.8 206.0 Q 162.7 193.1 240.0 203.5 Q 314.5 181.2 379.2 202.7 Q 452.9 167.9 518.4 191.7 L 518.4 364.0 Z" fill="#e2b08a" opacity="0.38"/><path d="M -38.4 364.0 L -38.4 257.3 Q 27.2 237.3 73.0 259.7 Q 139.5 197.9 184.3 225.5 Q 234.3 204.0 295.7 229.3 Q 357.7 217.5 407.0 242.2 Q 450.9 229.9 518.4 243.7 L 518.4 364.0 Z" fill="#c48468" opacity="0.5"/><path d="M -38.4 364.0 L -38.4 301.6 Q 35.8 286.6 100.8 302.6 Q 159.5 290.0 240.0 299.3 Q 314.4 273.2 379.2 283.6 Q 452.3 273.2 518.4 289.3 L 518.4 364.0 Z" fill="#8d5e48" opacity="0.72"/></g>
+<ellipse cx="240.0" cy="280.8" rx="201.6" ry="19.8" fill="#f3ddcf" opacity="0.55"/>
+<ellipse cx="240.0" cy="279.0" rx="105.6" ry="6.5" fill="#fff" opacity="0.35"/>
+
+<rect width="480" height="360" filter="url(#g43grain)" opacity="0.55"/>
+</svg>

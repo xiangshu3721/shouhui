@@ -1,8 +1,9 @@
-/* 「找回主体性」V0.2 —— 纯前端，本地保存，无后端 */
+/* 「主体边界卡」V0.3 —— 纯前端，本地保存，无后端 */
 (function () {
   "use strict";
   var C = window.SHOUHUI_CONTENT;
   var KEY = "shouhui.v1";
+  var VER = "0.3.0";
   var SCHEMA = 1;
   var NICK_KEY = "rk.v1.nickname";
   var app = document.getElementById("app");
@@ -12,7 +13,8 @@
     hero: "img/hero/hero.svg",
     quiz: "img/hero/quiz.svg",
     card: function (id) { return "img/cards/" + id + ".svg"; },
-    dim: function (d) { return "img/cards/dim-" + d + ".svg"; }
+    dim: function (d) { return "img/cards/dim-" + d + ".svg"; },
+    group: function (id) { return "img/cards/group-" + id + ".svg"; }
   };
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
@@ -24,7 +26,7 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
   function cardTitle(c, inList) { return inList && c.listTitle ? c.listTitle : c.title; }
-  function bg(url) { return ' style="background-image:url(\'' + url + '\')"'; }
+  function bg(url) { return ' style="background-image:url(\'' + url + "?v=" + VER + '\')"'; }
 
   /* ---------------- 存储 ---------------- */
   function blank() {
@@ -169,7 +171,7 @@
     cards: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="11" height="15" rx="1.5"/><path d="M9 4.5h9.5v15H9"/></svg>',
     chart: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M10.5 19V5M16 19v-7M21 19H3"/></svg>',
     book: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h6.5A3 3 0 0 1 14.5 8.5v10H8A3 3 0 0 0 5 15.5z"/><path d="M19 5.5h-6.5A3 3 0 0 0 9.5 8.5v10H16A3 3 0 0 1 19 15.5z"/></svg>',
-    leaf: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17c6-1 10-6 11-12-6 1-11 5-12 11z"/><path d="M9 14c2-2 4.5-3.5 7-4"/></svg>',
+    leaf: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-6.5-3.8-6.5-8.2A3.4 3.4 0 0 1 12 9.2a3.4 3.4 0 0 1 6.5 2.6C18.5 16.2 12 20 12 20z"/></svg>',
     sun: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6.1 6.1l1.6 1.6M16.3 16.3l1.6 1.6M6.1 17.9l1.6-1.6M16.3 7.7l1.6-1.6"/></svg>',
     seal: '<svg class="seal" viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="3" width="34" height="34" rx="4"/><text x="20" y="27.6" text-anchor="middle">主</text></svg>',
     home: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10v9h11v-9"/></svg>',
@@ -209,25 +211,24 @@
   function viewHome() {
     var a = latestAssessment(), n = todayDoneCount();
     var grid = C.ui.grid.map(function (g) {
-      var ic = { draw: ICON.cards, quiz: ICON.chart, library: ICON.book, journal: ICON.leaf }[g.key] || ICON.sun;
+      var ic = { draw: ICON.cards, quiz: ICON.chart, practice: ICON.book, remind: ICON.leaf }[g.key] || ICON.sun;
       return '<a class="g4 ' + g.key + '" href="' + g.hash + '"><span class="g4-ic">' + ic + "</span><strong>" + esc(g.title) + "</strong><span>" + esc(g.desc) + "</span></a>";
     }).join("");
-    var sets = C.dimOrder.map(function (k) {
-      var cnt = C.cards.filter(function (c) { return c.dim === k; }).length;
-      return '<a class="set" href="#/library/' + k + '"><div class="set-art"' + bg(ART.dim(k)) + '></div><div class="set-body"><strong>' +
-        esc(C.dims[k].name) + "</strong><span>" + cnt + " 张 · " + esc(C.dimCover[k]) + "</span></div></a>";
+    var sets = (C.groups || []).map(function (g) {
+      return '<a class="set" href="#/library/' + g.id + '"><div class="set-art"' + bg(ART.group(g.id)) + '><strong>' +
+        esc(g.name) + "</strong><em>" + g.cardIds.length + " 张</em></div></a>";
     }).join("");
     var tip = a
-      ? '<p class="lead" style="margin-top:4px">' + cnDate(a.date) + " 的测评里，更值得留意的是<b style=\"color:var(--teal)\">" + esc(C.dims[a.top[0]].name) + "</b>和<b style=\"color:var(--teal)\">" + esc(C.dims[a.top[1]].name) + "</b>。" +
+      ? '<p class="muted small center" style="margin-top:8px">' + cnDate(a.date) + " 的测评里，更值得留意的是<b style=\"color:var(--teal)\">" + esc(C.dims[a.top[0]].name) + "</b>和<b style=\"color:var(--teal)\">" + esc(C.dims[a.top[1]].name) + "</b>。" +
         (n ? " 今天已完成 " + n + " 次觉察。" : "") + "</p>"
       : (S.draft ? '<p class="lead">测评答到一半了，可以继续。</p><div class="row"><a class="btn primary" href="#/quiz">继续答题</a></div>' : "");
     app.innerHTML =
-      '<header class="brand"><div class="brand-row">' + ICON.seal + "<h1>" + esc(C.app.name) + '</h1></div>' +
+      '<header class="brand"><h1>' + esc(C.app.name) + '</h1>' +
       '<p class="tagline">' + esc(C.app.tagline) + "</p></header>" +
-      '<section class="hero" aria-label="今日寄语"><div class="hero-art"' + bg(ART.hero) + '></div><div class="hero-shade"></div><p class="hero-txt">' + esc(C.app.heroLine) + "</p></section>" +
-      '<div class="grid4">' + grid + "</div>" + tip +
-      '<div class="sec-h"><h2>' + esc(C.ui.setsTitle) + '</h2><a href="#/library">全部</a></div>' +
-      '<div class="sets">' + sets + "</div>" + credit();
+      '<section class="hero" aria-label="今日寄语"><div class="hero-art"' + bg(ART.hero) + '></div><div class="hero-shade"></div><p class="hero-txt">' + esc(C.app.heroLine) + "。</p></section>" +
+      '<div class="grid4">' + grid + "</div>" +
+      '<div class="sec-h"><h2>' + esc(C.ui.setsTitle) + '</h2><a href="#/library">' + esc(C.ui.setsAll || "查看全部") + "</a></div>" +
+      '<div class="sets">' + sets + "</div>" + tip + credit();
   }
 
   /* ---------------- 测评 ---------------- */
@@ -242,7 +243,7 @@
       '<span class="count" aria-live="polite">' + (i + 1) + " / 16</span>" +
       '<a class="icon-btn" href="#/" data-act="exit" aria-label="先离开">' + ICON.close + "<span>先离开</span></a></div>" +
       '<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="16" aria-valuenow="' + i + '"><i style="width:' + pct + '%"></i></div>' +
-      '<div class="q-card"><div class="q-art"' + bg(ART.quiz) + '></div><div class="q-body"><p class="q-no">第 ' + (i + 1) + " 题</p>" +
+      '<div class="q-card"><div class="q-body"><p class="q-no">第 ' + (i + 1) + " 题</p>" +
       '<h1 class="q-text">' + esc(q.text) + "</h1></div></div>" +
       '<div class="opts" role="radiogroup" aria-label="选择最接近你最近状态的一项">' + C.options.map(function (o, k) {
         var v = k + 1;
@@ -327,26 +328,32 @@
     var isLatest = a === latestAssessment();
     var t1 = a.top[0], t2 = a.top[1];
     var tips = [
-      { ic: ICON.leaf, t: "练习方向", d: C.dims[t1].practice },
-      { ic: ICON.sun, t: "下周可以试试", d: C.dims[t1].nextWeek },
-      { ic: ICON.cards, t: "对应卡组", d: "从「" + C.dims[t1].name + "」里抽一张，每天一点觉察。" }
+      { t: "练习方向", d: C.dims[t1].practice },
+      { t: "下周可以试试", d: C.dims[t1].nextWeek },
+      { t: "对应卡组", d: "从「" + C.dims[t1].name + "」里抽一张，每天一点觉察。" }
     ];
     app.innerHTML =
       '<p class="eyebrow">' + esc(a.nick || "你") + " · " + cnDate(a.date) + (isLatest ? "" : " 的记录") + "</p>" +
-      '<h1 class="page-h">' + esc(C.ui.resultTitle) + "</h1>" +
-      '<article class="result-hero"><div class="rh-art"' + bg(ART.dim(t1)) + '></div><div class="rh-body">' + bars(a) +
-      (band(a.scores[t1]) === "steady" ? '<p class="muted small">' + esc(C.ui.resultAllSteady) + "</p>" : "") +
-      "</div></article>" +
+      '<h1 class="page-h">' + esc(C.ui.resultModeTitle) + "</h1>" +
+      '<p class="lead">' + esc(C.ui.resultModeLead) + "</p>" +
+      '<article class="type-card"><div class="type-top"><div class="type-art"' + bg(ART.dim(t1)) + '></div><div><h2 class="type-name">' +
+      esc(C.dims[t1].name) + '<span class="badge">' + esc(C.ui.resultBadge) + "</span></h2></div></div>" +
+      "<p class=\"type-desc\">" + esc(C.dims[t1].desc) + "</p>" +
+      (band(a.scores[t1]) === "steady" ? '<p class="muted small" style="margin:10px 0 0">' + esc(C.ui.resultAllSteady) + "</p>" : "") +
+      "</article>" +
+      '<h2 class="sec-label">' + esc(C.ui.actionTitle) + "</h2>" +
+      '<ol class="actions">' + tips.map(function (t, i) {
+        return '<li><span class="an">' + (i + 1) + "</span><div><strong>" + esc(t.t) + "</strong><p>" + esc(t.d) + "</p></div></li>";
+      }).join("") + "</ol>" +
+      '<div class="row col"><button type="button" class="btn primary wide" data-act="begin">' + esc(C.ui.resultCta) + "</button></div>" +
+      '<h2 class="sec-label" style="margin-top:18px">' + esc(C.ui.resultTitle) + "</h2>" +
+      '<article class="result-hero"><div class="rh-body">' + bars(a) + "</div></article>" +
       '<p class="lead">' + esc(C.ui.resultTopLead) + "</p>" +
       '<div class="tops">' + [t1, t2].map(function (k, i) {
-        return '<div class="top"><p class="top-h"><span class="num">' + (i ? "②" : "①") + "</span>" + esc(C.dims[k].name) + ' <b>' + a.scores[k] + "</b></p><p>" + esc(C.dims[k].desc) + "</p></div>";
+        return '<div class="top"><p class="top-h"><span class="num">' + (i ? "②" : "①") + "</span>" + esc(C.dims[k].name) + " <b>" + a.scores[k] + "</b></p><p>" + esc(C.dims[k].desc) + "</p></div>";
       }).join("") + "</div>" +
       '<div class="practice"><p>' + esc(C.ui.resultPracticeLead) + '</p><p class="practice-q">“' + esc(C.dims[t1].practice) + "”</p></div>" +
-      '<div class="tips">' + tips.map(function (t) {
-        return '<div class="tip"><span class="tip-ic">' + t.ic + "</span><div><strong>" + esc(t.t) + "</strong><span>" + esc(t.d) + "</span></div></div>";
-      }).join("") + "</div>" +
-      '<div class="row col"><button type="button" class="btn primary wide" data-act="begin">' + esc(C.ui.resultCta) + "</button>" +
-      '<div class="row two"><button type="button" class="btn" data-act="export">' + ICON.save + '保存图片</button><button type="button" class="btn ghost" data-act="retest">' + ICON.redo + "重新测试</button></div></div>" +
+      '<div class="row two"><button type="button" class="btn" data-act="export">' + ICON.save + '保存图片</button><button type="button" class="btn ghost" data-act="retest">' + ICON.redo + "重新测试</button></div>" +
       '<p class="muted small center">结果只保存在这台设备上，可以在「我的」里看历史记录。</p>';
     app.querySelector('[data-act="begin"]').addEventListener("click", function () { newDraw(t1, "recommend"); go("#/card"); });
     app.querySelector('[data-act="retest"]').addEventListener("click", function () { S.draft = null; save(); go("#/quiz"); });
@@ -368,7 +375,7 @@
     window.ShouhuiExport.render(a, C).then(function (blob) {
       exporting = false; hideToast();
       var url = URL.createObjectURL(blob);
-      var name = ((a.nick ? a.nick + "-" : "") + "找回主体性-" + a.date.replace(/-/g, "") + ".png").replace(/\s+/g, "");
+      var name = ((a.nick ? a.nick + "-" : "") + C.app.name + "-" + a.date.replace(/-/g, "") + ".png").replace(/\s+/g, "");
       if (previewMode()) return showPreview(url);
       var l = document.createElement("a"); l.href = url; l.download = name; l.rel = "noopener";
       document.body.appendChild(l); l.click(); document.body.removeChild(l);
@@ -380,7 +387,7 @@
     var ov = document.createElement("div");
     ov.className = "overlay"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "保存图片");
     ov.innerHTML = '<div class="sheet"><p class="sheet-tip"><b>长按下面的图片</b>，选择「保存到相册」或「保存图片」。</p>' +
-      '<div class="sheet-img"><img src="' + url + '" alt="找回主体性 · 结果长图"></div>' +
+      '<div class="sheet-img"><img src="' + url + '" alt="' + esc(C.app.name) + ' · 结果长图"></div>' +
       '<div class="sheet-actions"><button type="button" class="btn primary wide" data-close>关闭</button></div></div>';
     document.body.appendChild(ov); document.body.classList.add("noscroll");
     function close() { if (!ov.parentNode) return; ov.parentNode.removeChild(ov); document.body.classList.remove("noscroll"); URL.revokeObjectURL(url); document.removeEventListener("keydown", onKey); }
@@ -397,12 +404,21 @@
     var boxes = c.boxes ? '<div class="boxes">' + C.ui.taskBoxes.map(function (b) {
       return '<label class="box"><span>' + esc(b.label) + '</span><textarea rows="2" maxlength="80" data-box="' + b.key + '" placeholder="写在这里"></textarea></label>';
     }).join("") + "</div>" : "";
+    return drawArtHtml(c) + drawTryHtml(c, boxes);
+  }
+  function drawTryHtml(c, boxes) {
+    if (boxes == null) {
+      boxes = c.boxes ? '<div class="boxes">' + C.ui.taskBoxes.map(function (b) {
+        return '<label class="box"><span>' + esc(b.label) + '</span><textarea rows="2" maxlength="80" data-box="' + b.key + '" placeholder="写在这里"></textarea></label>';
+      }).join("") + "</div>" : "";
+    }
+    return '<section class="act-box"><h3>' + esc(C.ui.tryLabel) + "</h3><p>" + esc(c.try) + "</p>" + boxes + "</section>";
+  }
+  function drawArtHtml(c) {
     return '<article class="draw-card">' +
-      '<div class="draw-art"' + bg(ART.card(c.id)) + '><span class="dim-chip">' + esc(C.dims[c.dim].name) + "</span>" +
-      (c.tag ? '<p class="card-tag">' + esc(c.tag) + "</p>" : "") +
-      '<h1 class="card-title">' + esc(c.title) + "</h1></div>" +
-      '<div class="think"><h3>今日思考</h3><p>' + esc(c.ask) + "</p></div>" +
-      '<div class="act-box"><h3>今天试一次</h3><p>' + esc(c.try) + "</p>" + boxes + "</div></article>";
+      '<div class="draw-art"' + bg(ART.card(c.id)) + '><div class="draw-copy"><h1 class="card-title">' + esc(cardTitle(c)) +
+      '</h1><p class="card-quote">' + esc(c.tag || c.remind) + "</p></div></div>" +
+      '<div class="think"><h3>' + esc(C.ui.thinkLabel) + "</h3><p>" + esc(c.ask) + "</p></div></article>";
   }
   function viewCard() {
     var d = S.currentDrawId ? findDraw(S.currentDrawId) : null;
@@ -415,23 +431,27 @@
     }
     if (!d || d.done || d.date !== today()) {
       var n = todayDoneCount();
-      app.innerHTML = '<p class="eyebrow">今日抽卡</p><h1 class="page-h">' + esc(C.ui.homeAsk) + "</h1>" +
-        '<p class="lead">' + (n ? "今天已经完成 " + n + " 次觉察。想再看看，也可以再选一次。" : esc(C.ui.drawLead)) + "</p>" +
+      app.innerHTML = '<p class="eyebrow">' + esc(C.ui.drawTitle) + "</p><h1 class=\"page-h\">" + esc(C.ui.homeAsk) + "</h1>" +
+        '<p class="lead">' + (n ? "今天已经完成 " + n + " 次觉察。想再看看，也可以再选一次。" : esc(C.ui.drawSub)) + "</p>" +
         stateButtons() +
-        '<div class="row center"><a class="btn link" href="#/library">查看全部卡牌</a></div>' + credit();
+        '<a class="text-link" href="#/library">' + esc(C.ui.seeAll) + "</a>" + credit();
       bindStates(app);
       return;
     }
     var c = CARD[d.cardId];
     app.innerHTML =
-      '<p class="eyebrow">今日抽卡 · ' + cnDate(d.date) + "</p>" + drawCardHtml(c) +
+      '<p class="eyebrow">' + cnDate(d.date) + "</p>" +
+      '<h1 class="page-h">' + esc(C.ui.drawTitle) + "</h1>" +
+      '<p class="lead">' + esc(C.ui.drawSub) + "</p>" +
+      drawArtHtml(c) +
+      '<button type="button" class="btn wide" data-act="redraw">' + ICON.refresh + esc(C.ui.redraw) + "</button>" +
+      '<a class="text-link" href="#/library">' + esc(C.ui.seeAll) + "</a>" +
+      drawTryHtml(c) +
       '<section class="react" aria-label="读完的感觉"><p class="react-h">读完，你的感觉是？</p><div class="chips" role="radiogroup">' +
       C.ui.reactions.map(function (r) { return '<button type="button" role="radio" class="chip' + (d.reaction === r.key ? " on" : "") + '" aria-checked="' + (d.reaction === r.key) + '" data-r="' + r.key + '">' + esc(r.label) + "</button>"; }).join("") +
       '</div><textarea class="note" rows="2" maxlength="140" placeholder="' + esc(C.ui.notePlaceholder) + '" aria-label="写一句（可不写）"></textarea>' +
       '<p class="muted small">都可以不填。</p></section>' +
-      '<div class="row col"><button type="button" class="btn primary wide" data-act="try">' + esc(C.ui.cardCta) + "</button>" +
-      '<div class="row two"><button type="button" class="btn ghost" data-act="redraw">' + ICON.refresh + "换一张</button>" +
-      '<a class="btn ghost" href="#/library">全部卡牌</a></div></div>';
+      '<div class="row col"><button type="button" class="btn primary wide" data-act="try">' + esc(C.ui.cardCta) + "</button></div>";
     var note = app.querySelector(".note"); note.value = d.note || "";
     note.addEventListener("input", function () { d.note = note.value.slice(0, 140); save(); });
     Array.prototype.forEach.call(app.querySelectorAll("[data-box]"), function (t) {
@@ -461,50 +481,103 @@
 
   /* ---------------- 卡牌图鉴 ---------------- */
   var libFilter = "all";
-  function viewLibrary(dim) {
-    if (dim && C.dims[dim]) libFilter = dim;
-    var list = C.cards.filter(function (c) { return libFilter === "all" || c.dim === libFilter; });
+  function findGroup(id) {
+    return (C.groups || []).filter(function (g) { return g.id === id; })[0] || null;
+  }
+  function libCardHtml(c) {
+    return '<button type="button" class="lib-card" data-id="' + c.id + '"><div class="lc-art"' + bg(ART.card(c.id)) +
+      "><strong>" + esc(cardTitle(c, true)) + "</strong><span>" + esc(c.tag || c.remind) + "</span></div></button>";
+  }
+  function groupSection(g) {
+    return '<section class="lib-sec"><h2 class="lib-h">' + esc(g.name) + '</h2><p class="lib-lead">' + esc(g.lead) +
+      '</p><div class="lib">' + g.cardIds.map(function (id) { return CARD[id] ? libCardHtml(CARD[id]) : ""; }).join("") + "</div></section>";
+  }
+  function viewLibrary(key) {
+    if (key === "all") libFilter = "all";
+    else if (key && findGroup(key)) libFilter = key;
+    else if (key && C.dims[key]) libFilter = "dim:" + key;
     var filters = '<button type="button" class="fchip' + (libFilter === "all" ? " on" : "") + '" data-f="all">全部</button>' +
-      C.dimOrder.map(function (k) {
-        return '<button type="button" class="fchip' + (libFilter === k ? " on" : "") + '" data-f="' + k + '">' + esc(C.dims[k].name) + "</button>";
+      (C.groups || []).map(function (g) {
+        return '<button type="button" class="fchip' + (libFilter === g.id ? " on" : "") + '" data-f="' + g.id + '">' + esc(g.name) + "</button>";
       }).join("");
+    var body;
+    if (libFilter.indexOf("dim:") === 0) {
+      var dkey = libFilter.slice(4);
+      var list = C.cards.filter(function (c) { return c.dim === dkey; });
+      body = '<section class="lib-sec"><h2 class="lib-h">' + esc(C.dims[dkey].name) + '</h2><div class="lib">' +
+        list.map(libCardHtml).join("") + "</div></section>";
+    } else if (libFilter !== "all" && findGroup(libFilter)) {
+      body = groupSection(findGroup(libFilter));
+    } else {
+      body = (C.groups || []).map(groupSection).join("");
+    }
     app.innerHTML =
-      '<p class="eyebrow">卡牌图鉴 · 24 张</p><h1 class="page-h">' + esc(C.ui.libraryTitle) + "</h1>" +
+      '<h1 class="page-h">' + esc(C.ui.libraryTitle) + "</h1>" +
       '<p class="lead">' + esc(C.ui.libraryLead) + "</p>" +
-      '<div class="filters">' + filters + '</div>' +
-      '<div class="lib">' + list.map(function (c) {
-        return '<button type="button" class="lib-card" data-id="' + c.id + '"><div class="lc-art"' + bg(ART.card(c.id)) +
-          '><span class="lc-dim">' + esc(C.dims[c.dim].name) + '</span></div><div class="lc-body"><strong>' + esc(c.title) +
-          "</strong><span>" + esc(c.tag || c.remind) + "</span></div></button>";
-      }).join("") + "</div>" + credit();
+      '<div class="filters">' + filters + "</div>" + body + credit();
     Array.prototype.forEach.call(app.querySelectorAll("[data-f]"), function (b) {
-      b.addEventListener("click", function () { libFilter = b.getAttribute("data-f"); viewLibrary(); window.scrollTo(0, 0); });
+      b.addEventListener("click", function () {
+        var f = b.getAttribute("data-f");
+        var h = f === "all" ? "#/library" : "#/library/" + f;
+        libFilter = f;
+        if (location.hash !== h) location.hash = h;
+        else { viewLibrary(f === "all" ? "all" : f); window.scrollTo(0, 0); }
+      });
     });
     Array.prototype.forEach.call(app.querySelectorAll(".lib-card"), function (b) {
       b.addEventListener("click", function () { openCardDetail(b.getAttribute("data-id")); });
     });
+  }
+  function useCard(c, via) {
+    ensureFirstUse();
+    var rec = { id: uid(), at: Date.now(), date: today(), cardId: c.id, dim: c.dim, via: via || "library",
+      reaction: null, note: "", boxes: null, done: false, doneAt: null };
+    S.draws.push(rec); S.currentDrawId = rec.id; save(); justDone = null;
+    go("#/card");
   }
   function openCardDetail(id) {
     var c = CARD[id]; if (!c) return;
     var ov = document.createElement("div");
     ov.className = "overlay"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true");
     ov.innerHTML = '<div class="sheet"><div class="sheet-scroll">' + drawCardHtml(c).replace("今日思考", "问问自己") +
-      '<p class="muted small center" style="padding:8px 16px">这是图鉴预览。抽卡请从「抽卡」页开始。</p></div>' +
-      '<div class="sheet-actions"><button type="button" class="btn primary wide" data-close>关闭</button>' +
-      '<button type="button" class="btn ghost wide" data-draw>用这张开始今天</button></div></div>';
+      '<p class="muted small center" style="padding:8px 16px 16px">这是图鉴预览。也可以用这张开始今天。</p></div>' +
+      '<div class="sheet-actions"><button type="button" class="btn primary wide" data-draw>用这张开始今天</button>' +
+      '<button type="button" class="btn ghost wide" data-close>关闭</button></div></div>';
     document.body.appendChild(ov); document.body.classList.add("noscroll");
     function close() { if (!ov.parentNode) return; ov.parentNode.removeChild(ov); document.body.classList.remove("noscroll"); }
     ov.querySelector("[data-close]").addEventListener("click", close);
     ov.addEventListener("click", function (e) { if (e.target === ov) close(); });
-    ov.querySelector("[data-draw]").addEventListener("click", function () {
-      ensureFirstUse();
-      var used = recentShown();
-      // 用户主动点图鉴：允许抽这张（若 7 天内已出现过也尊重用户选择）
-      var rec = { id: uid(), at: Date.now(), date: today(), cardId: c.id, dim: c.dim, via: "library",
-        reaction: null, note: "", boxes: null, done: false, doneAt: null };
-      S.draws.push(rec); S.currentDrawId = rec.id; save(); justDone = null;
-      close(); go("#/card");
+    ov.querySelector("[data-draw]").addEventListener("click", function () { close(); useCard(c, "library"); });
+  }
+
+  /* ---------------- 情境练习 / 今日提醒 ---------------- */
+  function viewPractice() {
+    var items = [];
+    (C.groups || []).forEach(function (g) {
+      g.cardIds.slice(0, 2).forEach(function (id) {
+        var c = CARD[id]; if (!c) return;
+        items.push('<button type="button" class="scene" data-id="' + c.id + '"><span class="scene-k">' + esc(g.name) +
+          "</span><strong>" + esc(cardTitle(c, true)) + '</strong><span class="scene-try">' + esc(c.try) + "</span></button>");
+      });
     });
+    app.innerHTML = '<h1 class="page-h">' + esc(C.ui.practiceTitle) + "</h1>" +
+      '<p class="lead">' + esc(C.ui.practiceLead) + "</p>" +
+      '<div class="scenes">' + items.join("") + "</div>" +
+      '<a class="text-link" href="#/card">' + esc(C.ui.practiceMore) + "</a>" + credit();
+    Array.prototype.forEach.call(app.querySelectorAll(".scene"), function (b) {
+      b.addEventListener("click", function () { var c = CARD[b.getAttribute("data-id")]; if (c) useCard(c, "practice"); });
+    });
+  }
+  function viewRemind() {
+    var c = C.cards[Math.abs(dayNum(today())) % C.cards.length];
+    app.innerHTML = '<p class="eyebrow">' + cnDate(today()) + "</p>" +
+      '<h1 class="page-h">' + esc(C.ui.remindTitle) + "</h1>" +
+      '<p class="lead">' + esc(C.ui.remindLead) + "</p>" +
+      '<article class="remind-card"><div class="remind-art"' + bg(ART.card(c.id)) + '><p class="remind-q">' + esc(c.remind) +
+      '</p><p class="remind-from">' + esc(cardTitle(c, true)) + "</p></div></article>" +
+      '<button type="button" class="btn primary wide" data-act="use">' + esc(C.ui.remindCta) + "</button>" +
+      '<p class="muted small center" style="margin-top:12px">这句话来自卡牌，只留在这台设备上。</p>';
+    app.querySelector('[data-act="use"]').addEventListener("click", function () { useCard(c, "remind"); });
   }
 
   /* ---------------- 我的觉察 ---------------- */
@@ -542,7 +615,7 @@
         return '<li><a href="#/result/' + esc(x.id) + '"><span>' + cnDate(x.date) + " " + pad(new Date(x.at).getHours()) + ":" + pad(new Date(x.at).getMinutes()) + "</span><span>" + esc(C.dims[x.top[0]].name) + " " + x.scores[x.top[0]] + " · " + esc(C.dims[x.top[1]].name) + " " + x.scores[x.top[1]] + "</span></a></li>";
       }).join("") + "</ul></details>" : "")
       : '<div class="soft">还没有做过测评。<div class="row"><a class="btn primary" href="#/quiz">测一测</a></div></div>';
-    app.innerHTML = '<h1 class="page-h">我的觉察</h1>' +
+    app.innerHTML = '<h1 class="page-h">我的</h1>' +
       '<section class="panel"><h2 class="ph">7 天小结</h2>' + week + "</section>" +
       '<section class="panel"><h2 class="ph">觉察记录</h2>' + list + "</section>" +
       '<section class="panel"><h2 class="ph">我的测评</h2>' + tests + "</section>" +
@@ -563,6 +636,8 @@
       else if (v === "result") { viewResult(parts[1] ? decodeURIComponent(parts[1]) : null); tab = "home"; }
       else if (v === "card") viewCard();
       else if (v === "library") { viewLibrary(parts[1] || null); tab = "library"; }
+      else if (v === "practice") { viewPractice(); tab = "practice"; }
+      else if (v === "remind") viewRemind();
       else if (v === "journal") { viewJournal(); tab = "journal"; }
       else { tab = "home"; viewHome(); }
     } catch (e) {
@@ -582,7 +657,7 @@
   route();
 
   if ("serviceWorker" in navigator && location.protocol === "https:") {
-    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js?v=0.2.0").catch(function () {}); });
+    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js?v=" + VER).catch(function () {}); });
   }
 
   window.__shouhui = { scoreAnswers: scoreAnswers, rankDims: rankDims, pickDim: pickDim, pickCard: pickCard, weekly: weekly,

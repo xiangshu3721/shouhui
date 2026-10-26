@@ -1,10 +1,11 @@
 /*
- * 「找回主体性」V0.1 —— 全部文案集中在这里，改字只改这个文件。
+ * 「主体边界卡」—— 全部文案集中在这里，改字只改这个文件。
  *
  * 标注说明：
  *   src: "user"   = 用户原文（2026-10-11 规格），一字不改
  *   src: "added"  = 按同样风格补写，可随时改
  * 题目、选项、按钮文案、首页状态按钮均为用户原文。
+ * 可见产品名按设计稿为「主体边界卡」。
  */
 (function (root) {
   "use strict";
@@ -12,12 +13,12 @@
   var C = {};
 
   C.app = {
-    name: "找回主体性",                                                     // user
+    name: "主体边界卡",
     subtitle: "一个帮助你减少内耗、看清边界、找回主动权的小练习。",
-    tagline: "分清课题 · 收回注意力 · 练习主体性",
+    tagline: "分清课题，收回注意力，练习主体性。",
     heroLine: "更清晰的自己，从今天开始",               // user
     credit: "内容受到阿德勒个体心理学及《被讨厌的勇气》相关思想启发。",           // user
-    version: "0.1"
+    version: "0.3.0"
   };
 
   /* 四个维度：name / question / signs 为用户原文；desc（结果页说明）、practice（练习方向）、nextWeek（下周提醒）见各自 src 标注 */
@@ -86,14 +87,31 @@
   C.ui = {
     homeAsk: "今天，你更像是哪一种？",                                       // user
     drawLead: "抽一张卡，开始今天的觉察。",
-    libraryTitle: "卡牌图鉴",
-    libraryLead: "24 张觉察卡，按四个方向整理。点开就能看完整内容。",
+    libraryTitle: "卡牌",
+    libraryLead: "24 张觉察卡，分成四个方向。点开就能看完整内容。",
     setsTitle: "推荐卡组",
+    setsAll: "查看全部",
+    drawTitle: "今日抽卡",
+    drawSub: "抽一张卡片，开启今天的指引。",
+    thinkLabel: "今日思考",
+    tryLabel: "今天试一次",
+    redraw: "换一张",
+    seeAll: "查看全部卡牌",
+    practiceTitle: "情境练习",
+    practiceLead: "挑一个很小的情境，把觉察用在今天。",
+    practiceMore: "按当下的心情抽一张",
+    remindTitle: "今日提醒",
+    remindLead: "一句话，带来力量。",
+    remindCta: "用这张开始今天",
+    resultModeTitle: "你的课题模式",
+    resultModeLead: "基于测试结果生成，帮助你更好地理解自己。",
+    resultBadge: "主要课题",
+    actionTitle: "行动建议",
     grid: [
       { key: "draw", title: "抽卡", desc: "获得当下的指引", hash: "#/card" },
-      { key: "quiz", title: "测一测", desc: "看看最近卡在哪里", hash: "#/quiz" },
-      { key: "library", title: "卡牌图鉴", desc: "浏览全部 24 张", hash: "#/library" },
-      { key: "journal", title: "我的觉察", desc: "记录与 7 天小结", hash: "#/journal" }
+      { key: "quiz", title: "测一测", desc: "探索你的课题模式", hash: "#/quiz" },
+      { key: "practice", title: "情境练习", desc: "在生活中应用", hash: "#/practice" },
+      { key: "remind", title: "今日提醒", desc: "一句话，带来力量", hash: "#/remind" }
     ],
     states: [                                                               // user
       { label: "特别在意别人怎么看", dim: "A" },
@@ -261,6 +279,22 @@
       remind: "没有十足把握的时候，也可以先往前走一步。",
       ask: "我在等的那个“确定”，真的会来吗？",
       try: "带着一点不确定做一个小决定，告诉自己“先这样，之后可以再调”。" }
+  ];
+
+  /* 图鉴呈现：四个方向。卡牌原文不改，只调整归类与顺序。 */
+  C.groups = [
+    { id: "edge", name: "边界认知", cover: "看清评价，把注意力收回来",
+      lead: "建立清晰的自我边界。",
+      cardIds: ["A1", "B1", "A5", "A2", "A3", "A4"] },
+    { id: "relate", name: "关系课题", cover: "在关系里守住自己的部分",
+      lead: "在关系中保持独立、平等、真实的连接。",
+      cardIds: ["B6", "C1", "C5", "B2", "B4", "B5"] },
+    { id: "grow", name: "自我成长", cover: "接纳情绪，放下控制",
+      lead: "接纳情绪，放下控制，成为更自由的自己。",
+      cardIds: ["C2", "C6", "C3", "C4", "A6", "B3"] },
+    { id: "act", name: "行动练习", cover: "把觉察落成很小的一步",
+      lead: "从觉察到行动，把心理学用在生活中。",
+      cardIds: ["D1", "D4", "D2", "D3", "D5", "D6"] }
   ];
 
   root.SHOUHUI_CONTENT = C;
