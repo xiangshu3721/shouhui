@@ -1,27 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 380" width="300" height="380">
-  <defs>
-    <linearGradient id="skygrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f3ddd0"/>
-      <stop offset="100%" stop-color="#e8b89a"/>
-    </linearGradient>
-    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#fffdf9" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#fffdf9" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#fffdf9" stop-opacity="0.95"/>
-    </linearGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
-  </defs>
-  <rect width="300" height="380" rx="18" fill="url(#skygrad)"/>
-  <g filter="url(#soft)" opacity="0.9"><path d="M 127.6 40.0 Q 127.6 40.0 124.4 55.9 Q 121.1 71.7 101.3 79.5 Q 81.5 87.2 58.9 89.7 Q 36.2 92.2 18.4 81.5 Q 0.6 70.8 -3.7 55.4 Q -8.0 40.0 -0.5 26.2 Q 7.0 12.5 21.9 0.8 Q 36.8 -11.0 58.5 -7.7 Q 80.2 -4.4 100.9 1.8 Q 121.6 8.0 124.6 24.0 Z" fill="#f3ddd0" opacity="0.26171515329780876"/><path d="M 211.9 40.0 Q 211.9 40.0 199.4 52.2 Q 187.0 64.4 175.3 78.1 Q 163.5 91.7 142.3 86.6 Q 121.2 81.4 102.9 75.1 Q 84.6 68.7 77.0 54.4 Q 69.3 40.0 80.4 27.4 Q 91.4 14.8 106.4 7.0 Q 121.5 -0.7 141.9 -4.9 Q 162.3 -9.0 178.4 1.4 Q 194.4 11.8 203.1 25.9 Z" fill="#e8b89a" opacity="0.2939063952290235"/><path d="M 279.4 40.0 Q 279.4 40.0 273.8 52.5 Q 268.2 65.0 253.6 73.4 Q 239.0 81.7 217.8 86.5 Q 196.6 91.4 179.9 80.4 Q 163.1 69.5 155.2 54.8 Q 147.3 40.0 156.3 25.8 Q 165.4 11.7 181.1 0.3 Q 196.8 -11.0 219.3 -9.5 Q 241.9 -8.1 255.7 3.1 Q 269.6 14.3 274.5 27.1 Z" fill="#f7ebe4" opacity="0.26954663471541057"/><path d="M 125.5 90.0 Q 125.5 90.0 116.1 102.1 Q 106.7 114.2 93.1 123.6 Q 79.6 133.0 59.6 134.0 Q 39.6 135.0 21.9 127.0 Q 4.2 119.0 -0.3 104.5 Q -4.7 90.0 -1.7 74.8 Q 1.2 59.5 21.4 54.4 Q 41.5 49.4 59.8 49.9 Q 78.0 50.4 92.4 58.1 Q 106.8 65.7 116.1 77.9 Z" fill="#fff2d8" opacity="0.29950621945772"/><path d="M 208.2 90.0 Q 208.2 90.0 199.7 103.3 Q 191.3 116.6 176.3 126.8 Q 161.3 136.9 141.4 133.8 Q 121.5 130.7 103.3 124.6 Q 85.0 118.5 81.1 104.3 Q 77.2 90.0 79.4 74.8 Q 81.6 59.7 98.9 48.7 Q 116.2 37.7 138.5 41.0 Q 160.8 44.2 178.3 52.6 Q 195.7 61.1 201.9 75.5 Z" fill="#f3ddd0" opacity="0.28552383122628644"/><path d="M 288.1 90.0 Q 288.1 90.0 283.4 105.2 Q 278.8 120.5 260.0 128.6 Q 241.2 136.7 220.3 136.0 Q 199.4 135.3 181.8 127.1 Q 164.2 119.0 160.1 104.5 Q 156.1 90.0 160.6 75.8 Q 165.2 61.5 183.7 56.3 Q 202.2 51.0 222.1 46.3 Q 242.0 41.7 256.7 52.5 Q 271.5 63.3 279.8 76.6 Z" fill="#e8b89a" opacity="0.26313917365929557"/></g>
-  <path d="M 0,290 L 0,189.2 L 23,181.1 L 48,181.2 L 69,188.2 L 91,201.4 L 109,215.2 L 133,216.2 L 158,197.8 L 180,185.9 L 198,180.7 L 217,180.6 L 245,189.9 L 269,205.0 L 293,223.8 L 300,290 Z" fill="#8a5540" opacity="0.55"/>
-<path d="M 0,290 L 0,174.5 L 26,155.8 L 46,150.1 L 73,156.0 L 99,175.0 L 122,198.5 L 144,204.9 L 171,176.1 L 199,155.6 L 225,150.1 L 249,157.5 L 274,176.4 L 294,197.8 L 300,290 Z" fill="#c48468" opacity="0.75"/>
-  <ellipse cx="150" cy="268" rx="120" ry="18" fill="#cfe0e8" opacity="0.45"/>
-    <ellipse cx="150" cy="268" rx="90" ry="10" fill="#ffffff" opacity="0.25"/>
-  <g><circle cx="150" cy="70" r="25.2" fill="#fff2d8" opacity="0.18"/><polygon points="150.0,56.0 153.2,66.8 164.0,70.0 153.2,73.2 150.0,84.0 146.8,73.2 136.0,70.0 146.8,66.8" fill="#fff2d8"/><path d="M 150 280 Q 157 230, 152 190 T 150 120" fill="none" stroke="#c48468" stroke-width="3" stroke-linecap="round" opacity="0.55"/></g>
-  <circle cx="150" cy="234" r="5" fill="#8a5540" opacity="0.75"/>
-    <path d="M 150 240 L 150 254 M 143 246 L 157 246 M 150 254 L 144 264 M 150 254 L 156 264"
-      stroke="#8a5540" stroke-width="2" stroke-linecap="round" opacity="0.75" fill="none"/>
-  <rect width="300" height="380" fill="url(#paper)"/>
-  <!-- subtle grain -->
-  <rect width="300" height="380" rx="18" fill="none" stroke="#e8dfd0" stroke-width="1"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="360" height="480">
+<defs>
+  <linearGradient id="g18sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#f5f7f6"/>
+    <stop offset="55%" stop-color="#d2e6e2"/>
+    <stop offset="100%" stop-color="#e5f2ef"/>
+  </linearGradient>
+  <filter id="g18soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="10"/>
+  </filter>
+  <filter id="g18grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="18"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+  </filter>
+</defs>
+<rect width="360" height="480" fill="url(#g18sky)"/>
+<g filter="url(#g18soft)"><path d="M 101.4 23.2 Q 62.8 14.2 101.4 23.2 Q 140.0 32.3 162.5 59.3 Q 185.0 86.4 166.5 111.3 Q 148.1 136.1 105.4 152.3 Q 62.8 168.5 22.3 156.3 Q -18.3 144.1 -45.2 115.3 Q -72.2 86.4 -54.9 61.8 Q -37.6 37.3 12.6 25.7 Z" fill="#e5f2ef" opacity="0.33"/><path d="M 328.2 48.7 Q 287.6 45.6 328.2 48.7 Q 368.8 51.7 388.7 78.6 Q 408.6 105.6 383.5 125.1 Q 358.4 144.7 323.0 155.4 Q 287.6 166.0 246.3 159.9 Q 205.0 153.8 190.4 129.7 Q 175.9 105.6 189.1 81.0 Q 202.2 56.4 244.9 51.0 Z" fill="#b7d4ce" opacity="0.35"/><path d="M 213.3 108.3 Q 168.9 96.8 213.3 108.3 Q 257.7 119.8 288.7 141.5 Q 319.7 163.2 289.8 184.9 Q 260.0 206.7 214.4 212.8 Q 168.9 218.9 118.4 208.5 Q 67.8 198.1 41.1 180.6 Q 14.3 163.2 40.1 144.0 Q 65.8 124.8 117.4 110.8 Z" fill="#d2e6e2" opacity="0.46"/><path d="M 94.5 195.1 Q 63.3 189.5 94.5 195.1 Q 125.6 200.7 137.2 215.6 Q 148.8 230.4 142.3 245.6 Q 135.7 260.7 99.5 270.7 Q 63.3 280.6 23.9 274.4 Q -15.4 268.2 -29.8 249.3 Q -44.1 230.4 -32.2 215.7 Q -20.4 200.9 21.5 195.2 Z" fill="#fff" opacity="0.43"/><path d="M 346.4 188.2 Q 317.1 175.8 346.4 188.2 Q 375.7 200.5 389.3 220.2 Q 402.9 240.0 395.5 257.8 Q 388.1 275.5 352.6 290.1 Q 317.1 304.8 286.3 290.0 Q 255.6 275.2 231.2 257.6 Q 206.8 240.0 234.6 219.1 Q 262.4 198.2 289.7 187.0 Z" fill="#f4efc8" opacity="0.31"/></g>
+<circle cx="172.8" cy="144.0" r="46.0" fill="#f4efc8" opacity="0.35"/>
+<circle cx="172.8" cy="144.0" r="28.0" fill="#f4efc8" opacity="0.55"/>
+<circle cx="172.8" cy="144.0" r="16.0" fill="#fffbe6"/>
+<g><path d="M -28.8 484.0 L -28.8 269.9 Q 21.1 250.6 75.6 290.4 Q 127.1 250.3 180.0 274.0 Q 241.2 254.8 284.4 275.9 Q 328.2 232.1 388.8 262.5 L 388.8 484.0 Z" fill="#8fb4ac" opacity="0.38"/><path d="M -28.8 484.0 L -28.8 309.3 Q 7.3 270.5 54.7 321.6 Q 104.6 307.4 138.2 340.1 Q 187.1 251.5 221.8 283.7 Q 258.7 267.9 305.3 303.0 Q 336.6 274.1 388.8 332.6 L 388.8 484.0 Z" fill="#5e8b84" opacity="0.5"/><path d="M -28.8 484.0 L -28.8 384.7 Q 30.7 357.7 75.6 386.9 Q 122.0 377.5 180.0 388.2 Q 225.4 351.8 284.4 365.7 Q 327.9 354.1 388.8 396.8 L 388.8 484.0 Z" fill="#3d615c" opacity="0.72"/></g>
+<path d="M 180.0 470.4 C 165.6 393.6 223.2 336.0 172.8 278.4" fill="none" stroke="#f4efc8" stroke-width="8" stroke-linecap="round" opacity="0.28"/>
+<path d="M 180.0 470.4 C 165.6 393.6 223.2 336.0 172.8 278.4" fill="none" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+
+<rect width="360" height="480" filter="url(#g18grain)" opacity="0.55"/>
 </svg>

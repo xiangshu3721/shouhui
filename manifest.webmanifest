@@ -1,16 +1,16 @@
 {
-  "name": "找回主体性",
-  "short_name": "主体性",
-  "description": "一个帮助你减少内耗、看清边界、找回主动权的小练习。",
+  "name": "主体边界卡",
+  "short_name": "主体边界卡",
+  "description": "分清课题，收回注意力，练习主体性。",
   "lang": "zh-CN",
   "start_url": "./?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6efe6",
-  "theme_color": "#f6efe6",
+  "background_color": "#f3eee6",
+  "theme_color": "#f3eee6",
   "icons": [
-    { "src": "icons/icon-192.png?v=0.2.0", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png?v=0.2.0", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icons/icon.svg?v=0.2.0", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "icons/icon-192.png?v=0.3.0", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png?v=0.3.0", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon.svg?v=0.3.0", "sizes": "any", "type": "image/svg+xml" }
   ]
 }
